@@ -112,17 +112,16 @@ const animate = (context, backContext, imagesArray = [], callback) => {
     imagesArray.forEach((image, index) => {
         setTimeout(() => {
             console.log("clearing the front context");
-            context.clearRect(0, 0, context.width, context.height);
-            context.drawImage(image, 0, 0, context.width, context.height);
+            context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+            context.drawImage(image, 0, 0, context.canvas.width, context.canvas.height);
             console.log("Drawing the front context");
-            backContext.drawImage(frontCanvas, 0, backContext.height - Math.ceil(backContext.height / 1.3), Math.ceil(backContext.width / 2.3), Math.ceil(backContext.height / 1.3));
-            debugger;
-        }, index * 1000);
+            backContext.drawImage(frontCanvas, 0, backContext.canvas.height - Math.ceil(backContext.canvas.height / 1.3), Math.ceil(backContext.canvas.width / 2.3), Math.ceil(backContext.canvas.height / 1.3));
+        }, index * 100);
     });
     setTimeout(() => {
         console.groupEnd('animation');
         callback();
-    }, imagesArray.length * 1000);
+    }, imagesArray.length * 100);
 };
 
 loadAllImages(() => {
@@ -131,8 +130,8 @@ loadAllImages(() => {
     mainContext.drawImage(allImages["background"][0], 0, 0, mainCanvas.width, mainCanvas.height);
 
     /* Draw an idle image in front context with given width and height */
-    console.log("making front canvas")
-    frontContext.drawImage(allImages["idle"][0], 0, 0, frontCanvas.width, frontCanvas.height);
+    // console.log("making front canvas");
+    // frontContext.drawImage(allImages["idle"][0], 0, 0, frontCanvas.width, frontCanvas.height);
 
     /* Draw an idle image in background context with given width and height */
     // console.log("making opponent canvas");
