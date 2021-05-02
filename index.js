@@ -64,7 +64,7 @@ const loadAllImages = (callback) => {
  * Get the image path 
  * @param  {String} frame="" - Name of the image that is needed
  * @param  {Boolean} folder=false - Wether the image is present in folder?
- * @param  {} extension="png" - Extension of the image, set to png by default
+ * @param  {String} extension="png" - Extension of the image, set to png by default
  */
 const imgPath = (frame = "", folder = false, extension = "png") => {
     return ((folder) ? `./images/${folder}/${frame}.${extension}` : `./images/${frame}.${extension}`);
@@ -115,7 +115,7 @@ const animate = (context, backContext, imagesArray = [], callback) => {
             context.clearRect(0, 0, context.canvas.width, context.canvas.height);
             context.drawImage(image, 0, 0, context.canvas.width, context.canvas.height);
             console.log("Drawing the front context");
-            backContext.drawImage(frontCanvas, 0, backContext.canvas.height - Math.ceil(backContext.canvas.height / 1.3), Math.ceil(backContext.canvas.width / 2.3), Math.ceil(backContext.canvas.height / 1.3));
+            // backContext.drawImage(frontCanvas, 0, backContext.canvas.height - Math.ceil(backContext.canvas.height / 1.3), Math.ceil(backContext.canvas.width / 2.3), Math.ceil(backContext.canvas.height / 1.3));
         }, index * 100);
     });
     setTimeout(() => {
@@ -131,7 +131,7 @@ loadAllImages(() => {
 
     /* Draw an idle image in front context with given width and height */
     // console.log("making front canvas");
-    // frontContext.drawImage(allImages["idle"][0], 0, 0, frontCanvas.width, frontCanvas.height);
+    frontContext.drawImage(allImages["idle"][0], 0, 0, frontCanvas.width, frontCanvas.height);
 
     /* Draw an idle image in background context with given width and height */
     // console.log("making opponent canvas");
