@@ -1,6 +1,29 @@
 // import {
 //     fabric
 // } from "fabric";
+const modal_overlay = document.querySelector('#modal_overlay');
+const modal = document.querySelector('#modal');
+
+function openModal(value) {
+    const modalCl = modal.classList
+    const overlayCl = modal_overlay
+
+    if (value) {
+        overlayCl.classList.remove('hidden')
+        setTimeout(() => {
+            modalCl.remove('opacity-0')
+            modalCl.remove('-translate-y-full')
+            modalCl.remove('scale-150')
+        }, 100);
+    } else {
+        modalCl.add('-translate-y-full')
+        setTimeout(() => {
+            modalCl.add('opacity-0')
+            modalCl.add('scale-150')
+        }, 100);
+        setTimeout(() => overlayCl.classList.add('hidden'), 300);
+    }
+}
 let player1Images = {};
 let player2Images = {};
 
@@ -65,8 +88,14 @@ const loadAllImages = (callback) => {
         });
     }
 };
-
-let calculateMovePixels = (playerPosition = player1Position, fromMax = true, frameCount = 6, pixels = 120) => {
+/**
+ * @param  {Float} playerPosition=player1Position.x Position of player on X Axis 
+ * @param  {Boolean} fromMax=true True if player is moving to the right else false
+ * @param  {Integer} frameCount=6 The no. of Frames that will be used for animation
+ * @param  {Integer} pixels=120 Count of total pixels that the complete animation should move from
+ * @returns {Float} count of pixels by which each image should be moved
+ */
+let calculateMovePixels = (playerPosition = player1Position.x, fromMax = true, frameCount = 6, pixels = 120) => {
     if (fromMax) {
         return (((playerPosition + 120 > xMax.x) ? xMax.x - playerPosition : pixels) / frameCount);
     }
@@ -128,6 +157,7 @@ const animate = (canvasElem = canvas, animation1 = "idle", animation2 = 'idle', 
 };
 
 let startGame = () => {
+    openModal(true)
     canvas.hoverCursor = "default";
     // Add Player 1
     canvas.add(player1Images["idle"][0]);
