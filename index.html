@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head class="dark">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,17 @@
         crossorigin="anonymous" />
 </head>
 
-<body>
+<body class="overflow-hidden">
+    <div class="grid">
+        <canvas class="grid-cols-1" style="border: 2px solid red;" id="mainCanvas"></canvas>
+        <button
+            class="px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-red-500 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none mr-20 mt-3"
+            onclick="openModal(true)"
+            >
+            Controls?
+          </button>
+    </div>
+
     <div id="modal_overlay"
         class="hidden absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0">
         <!-- modal -->
@@ -27,24 +37,31 @@
             </div>
 
             <!-- body -->
-            <div class="w-full p-3">
-                Hello, Welcome to my Game,<br>
-                &nbsp;&nbsp;&nbsp;&nbsp;Player 1 (left character) controls on keyboard:
-                <ul>
-                    <li>k/K: Used to perform Kick action</li>
-                    <li>p/P: Used to perform Punch action</li>
-                    <li>b/B: Used to perform Block action</li>
-                    <li>d/D: Used to move the (left)character to the right (forwards action)</li>
-                    <li>a/A: Used to move the (left)character to the left (backwards action)</li>
-                </ul><br>
-                &nbsp;&nbsp;&nbsp;&nbsp;Player 2 (right character) controls on keyboard:
-                <ul>
-                    <li>7: Used to perform Kick action</li>
-                    <li>9: Used to perform Punch action</li>
-                    <li>5: Used to perform Block action</li>
-                    <li>Right Arrow: Used to move the (right)character to the right (backwards action)</li>
-                    <li>Left Arrow: Used to move the (right)character to the left (forwards action)</li>
-                </ul>
+            <div class="w-full p-3 pl-8">
+                <div class="container mx-auto">
+                    <p>
+                        Hello, Welcome to my Game,<br>
+                        <b>Player 1 (left character) controls on keyboard:</b>
+                        <ul class="list-disc">
+                            <li><b>k</b>/<b>K</b>: Used to perform Kick action</li>
+                            <li><b>p</b>/<b>P</b>: Used to perform Punch action</li>
+                            <li><b>b</b>/<b>B</b>: Used to perform Block action</li>
+                            <li><b>d</b>/<b>D</b>: Used to move the (left)character to the right (move forward)</li>
+                            <li><b>a</b>/<b>A</b>: Used to move the (left)character to the left (move backward action)</li>
+                        </ul>
+                        <br>
+                    </p>
+                    <p>
+                        <b>Player 2 (right character) controls on keyboard:</b>
+                        <ul class="list-disc">
+                            <li><b>7</b>: Used to perform Kick action</li>
+                            <li><b>9</b>: Used to perform Punch action</li>
+                            <li><b>5</b>: Used to perform Block action</li>
+                            <li><b>Right Arrow →</b>: Used to move the (right)character to the right (move backward action)</li>
+                            <li><b>Left Arrow </b>←: Used to move the (right)character to the left (move forward)</li>
+                        </ul>
+                    </p>
+                </div>
             </div>
 
             <!-- footer -->
@@ -56,7 +73,7 @@
         </div>
 
     </div>
-    <canvas style="border: 2px solid red;" id="mainCanvas"></canvas>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js"
         integrity="sha512-Ly9uI3QY88jVXCgkORH2A4Qqz5xYm1pew9jEgedgSpyEg9asvyPISK+CY7QNDN3CMftXU/KLNwQR7XUUo7Cqag=="
         crossorigin="anonymous"></script>

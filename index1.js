@@ -31,12 +31,12 @@ let maxMovement = 15;
 
 const canvas = new fabric.Canvas('mainCanvas', {
     backgroundImage: 'images/background.jpg',
-    width: window.innerWidth * 0.96,
-    height: window.innerHeight * 0.96,
+    width: window.innerWidth,
+    height: window.innerHeight * 0.94,
 });
 
-let playerHeight = Math.ceil(canvas.height / 1.3);
-let playerWidth = Math.ceil(canvas.width / 2.3);
+let playerHeight = Math.ceil(canvas.height / 1.5);
+let playerWidth = Math.ceil(canvas.width / 2.5);
 
 let player1Position = new fabric.Point(playerWidth / 2.7, (canvas.height - playerHeight / 2));
 let player2Position = new fabric.Point(canvas.width - (playerWidth / 2.7), (canvas.height - playerHeight / 2));
@@ -157,7 +157,7 @@ const animate = (canvasElem = canvas, animation1 = "idle", animation2 = 'idle', 
 };
 
 let startGame = () => {
-    openModal(true)
+    openModal(true);
     canvas.hoverCursor = "default";
     // Add Player 1
     canvas.add(player1Images["idle"][0]);
