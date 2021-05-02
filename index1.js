@@ -1,9 +1,10 @@
 // import {
 //     fabric
 // } from "fabric";
-let img;
 let player1Images = {};
 let player2Images = {};
+
+let maxMovement = 15;
 
 const canvas = new fabric.Canvas('mainCanvas', {
     backgroundImage: 'images/background.jpg',
@@ -16,6 +17,8 @@ let playerWidth = Math.ceil(canvas.width / 2.3);
 
 let player1Position = new fabric.Point(playerWidth / 2.7, (canvas.height - playerHeight / 2));
 let player2Position = new fabric.Point(canvas.width - (playerWidth / 2.7), (canvas.height - playerHeight / 2));
+let xMin = new fabric.Point(playerWidth / 2.7, (canvas.height - playerHeight / 2));
+let xMax = new fabric.Point(canvas.width - (playerWidth / 2.7), (canvas.height - playerHeight / 2));
 /**
  * Get the image path 
  * @param  {String} frame="" - Name of the image that is needed
@@ -63,35 +66,65 @@ const loadAllImages = (callback) => {
     }
 };
 
+let calculateMovePixels = (playerPosition = player1Position, fromMax = true, frameCount = 6, pixels = 120) => {
+    if (fromMax) {
+        return (((playerPosition + 120 > xMax.x) ? xMax.x - playerPosition : pixels) / frameCount);
+    }
+    return (((playerPosition - 120 < xMin.x) ? -(playerPosition - xMin.x) : -pixels) / frameCount);
+};
+
 /**
  * Automatically animates in the given context with the given images array and finally executes the callback
- * @param  {fabric.Canvas} context=Context - The context in which animation should take place
- * @param  {mainContext} context=Context - The context in which the fore context will be painted
- * @param  {String} animation="idle" - The animation that has to be played
- * @param  {Int} position=0 - The player position in the canvas that needs animation
+ * @param  {fabric.Canvas} canvasElem=Context - The context in which animation should take place
+ * @param  {String} animation1="idle" - The animation that has to be played for player 1
+ * @param  {String} animation2="idle" - The animation that has to be played for player 2
  * @param  {Function} callback - The callback that will be called after the animation has taken place
  */
 const animate = (canvasElem = canvas, animation1 = "idle", animation2 = 'idle', callback) => {
-    // animation = animation.toLowerCase();
-    // console.groupCollapsed('animation');
     let maxTimeout = Math.max(player1Images[animation1].length, player2Images[animation2].length) * 100;
     let player1TimeOut = maxTimeout / player1Images[animation1].length;
     let player2TimeOut = maxTimeout / player2Images[animation2].length;
-    player1Images[animation1].forEach((image, index) => {
-        setTimeout(() => {
-            canvasElem.item(0).setElement(image.getElement());
-            canvasElem.item(0).setPositionByOrigin(player1Position);
-            canvasElem.renderAll();
-        }, index * player1TimeOut);
-    });
-    player2Images[animation2].forEach((image, index) => {
-        setTimeout(() => {
-            canvasElem.item(1).setElement(image.getElement());
-            canvasElem.item(1).setPositionByOrigin(player2Position);
-            canvasElem.renderAll();
-        }, index * player2TimeOut);
-    });
-    setTimeout(callback, maxTimeout + 3);
+    if (animation1 !== "forward" && animation1 !== "backward") {
+        player1Images[animation1].forEach((image, index) => {
+            setTimeout(() => {
+                canvasElem.item(0).setElement(image.getElement());
+                canvasElem.item(0).setPositionByOrigin(player1Position);
+                canvasElem.renderAll();
+            }, index * player1TimeOut);
+        });
+    } else {
+        let movePixels = (animation1 === "forward") ? calculateMovePixels(player1Position.x) : calculateMovePixels(player1Position.x, false);
+
+        player1Images[animation1].forEach((image, index) => {
+            setTimeout(() => {
+                canvasElem.item(0).setElement(image.getElement());
+                canvasElem.item(0).setPositionByOrigin(player1Position.addEquals(new fabric.Point(movePixels, 0)));
+                canvasElem.renderAll();
+            }, index * player1TimeOut);
+        });
+    }
+    if (animation2 !== "forward" && animation2 !== "backward") {
+        player2Images[animation2].forEach((image, index) => {
+            setTimeout(() => {
+                canvasElem.item(1).setElement(image.getElement());
+                canvasElem.item(1).setPositionByOrigin(player2Position);
+                canvasElem.renderAll();
+            }, index * player2TimeOut);
+        });
+    } else {
+        let movePixels = (animation2 === "forward") ? calculateMovePixels(player2Position.x, false) : calculateMovePixels(player2Position.x);
+
+        player2Images[animation2].forEach((image, index) => {
+            setTimeout(() => {
+                canvasElem.item(1).setElement(image.getElement());
+                canvasElem.item(1).setPositionByOrigin(player2Position.addEquals(new fabric.Point(movePixels, 0)));
+                canvasElem.renderAll();
+            }, index * player2TimeOut);
+        });
+
+    }
+
+    setTimeout(callback, maxTimeout);
 };
 
 let startGame = () => {
@@ -160,19 +193,3 @@ let startGame = () => {
 };
 
 loadAllImages(startGame);
-
-
-
-// fabric.Image.fromURL("/images/idle/1.png", (image) => {
-//     img = image;
-//     image.set({
-//         flipX: true
-//     });
-//     image.scaleToHeight(Math.ceil(canvas.height / 1.3));
-//     image.scaleToWidth(Math.ceil(canvas.width / 2.3));
-//     image.setPositionByOrigin(new fabric.Point(canvas.width - (Math.ceil(canvas.width / 2.3) / 2), (canvas.height - Math.ceil(canvas.height / 1.3) / 2)))
-//     canvas.add(image).renderAll().setActiveObject(image);
-//     // image.
-// });
-
-// canvas.add(allImages["idle"][0]);
