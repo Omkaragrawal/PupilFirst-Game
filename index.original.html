@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head class="dark">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sketch Fight (Game)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.1/tailwind-dark.min.css"
+        integrity="sha512-vqADVq626ooRaJhfw+Ug3/bM2MCHGZ63eRDnxOzWqCW1AA/E89rTUOuX3vgFVDPYCP6c+JGdyiCZnJC5EabP2A=="
+        crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.1.1/components.min.css"
+        integrity="sha512-f6TS5CFJrH/EWmarcBwG54/kW9wwejYMcw+I7fRnGf33Vv4yCvy4BecCKTti3l8e8HnUiIbxx3V3CuUYGqR1uQ=="
+        crossorigin="anonymous" />
+</head>
+
+<body class="overflow-hidden">
+    <div class="grid">
+        <canvas class="grid-cols-1" style="border: 2px solid red;" id="mainCanvas"></canvas>
+        <button
+            class="px-6 py-2 font-medium leading-7 text-center text-white uppercase transition bg-red-500 rounded-full shadow ripple hover:shadow-lg hover:bg-blue-800 focus:outline-none mr-20 mt-3"
+            onclick="openModal(true)"
+            >
+            Controls?
+          </button>
+    </div>
+
+    <div id="modal_overlay"
+        class="hidden absolute inset-0 bg-black bg-opacity-30 h-screen w-full flex justify-center items-start md:items-center pt-10 md:pt-0">
+        <!-- modal -->
+        <div id="modal"
+            class="pacity-0 transform -translate-y-full scale-150  relative w-10/12 md:w-1/2 h-1/2 md:h-3/4 bg-white rounded shadow-lg transition-opacity transition-transform duration-300">
+            <!-- header -->
+            <div class="px-4 py-3 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-600 text-center">Instructions</h2>
+            </div>
+
+            <!-- body -->
+            <div class="w-full p-3 pl-8">
+                <div class="container mx-auto">
+                    <p>
+                        Hello, Welcome to my Game,<br>
+                        If there are any issues, like just a single character getting loaded, or not animation, or other issues, then please reload!!!<br>
+                        <b>Player 1 (left character) controls on keyboard:</b>
+                        <ul class="list-disc">
+                            <li><b>k</b>/<b>K</b>: Used to perform Kick action</li>
+                            <li><b>p</b>/<b>P</b>: Used to perform Punch action</li>
+                            <li><b>b</b>/<b>B</b>: Used to perform Block action</li>
+                            <li><b>d</b>/<b>D</b>: Used to move the (left)character to the right (move forward)</li>
+                            <li><b>a</b>/<b>A</b>: Used to move the (left)character to the left (move backward action)</li>
+                        </ul>
+                        <br>
+                    </p>
+                    <p>
+                        <b>Player 2 (right character) controls on keyboard:</b>
+                        <ul class="list-disc">
+                            <li><b>7</b>: Used to perform Kick action</li>
+                            <li><b>9</b>: Used to perform Punch action</li>
+                            <li><b>5</b>: Used to perform Block action</li>
+                            <li><b>Right Arrow →</b>: Used to move the (right)character to the right (move backward action)</li>
+                            <li><b>Left Arrow </b>←: Used to move the (right)character to the left (move forward)</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <div
+                class="absolute bottom-0 left-0 px-4 py-3 border-t border-gray-200 w-full flex justify-end items-center gap-3">
+                <button onclick="openModal(false)"
+                    class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded text-white focus:outline-none">Close</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.4.0/fabric.min.js"
+        integrity="sha512-Ly9uI3QY88jVXCgkORH2A4Qqz5xYm1pew9jEgedgSpyEg9asvyPISK+CY7QNDN3CMftXU/KLNwQR7XUUo7Cqag=="
+        crossorigin="anonymous"></script>
+    <script src="./index1.min.js"></script>
+
+</body>
+
+</html>
